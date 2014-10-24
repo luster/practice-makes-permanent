@@ -49,7 +49,11 @@ class BinarySearchTree(object):
             print str(root.data)+' ',
             return None
 
+        if not root.leftChild:
+            return None
         self.printDepth(N-1, root.leftChild)
+        if not root.rightChild:
+            return None
         self.printDepth(N-1, root.rightChild)
 
     def levelOrderTraverse(self):
