@@ -20,6 +20,7 @@ class BinarySearchTree(object):
             self.root = Node(data)
             self.numel += 1
 
+
     def insert(self, data, root=None):
         if not root:
             root = self.root
@@ -41,20 +42,23 @@ class BinarySearchTree(object):
             else:
                 self.insert(data, root.rightChild)
 
-    def printDepth(self, N, root=None):
-        if not root:
-            root = self.root
 
+    def printDepth(self, N):
+        self._printDepth(N, self.root)
+        print ''
+
+    def _printDepth(self, N, root):
         if N==0:
             print str(root.data)+' ',
             return None
 
         if not root.leftChild:
             return None
-        self.printDepth(N-1, root.leftChild)
+        self._printDepth(N-1, root.leftChild)
         if not root.rightChild:
             return None
-        self.printDepth(N-1, root.rightChild)
+        self._printDepth(N-1, root.rightChild)
+
 
     def levelOrderTraverse(self):
         q = deque()
@@ -66,6 +70,19 @@ class BinarySearchTree(object):
                 q.append(n.leftChild)
             if n.rightChild:
                 q.append(n.rightChild)
+        print ''
+
+
+    def depthFirstTraverse(self):
+        self._depthFirstTraverse(self.root)
+        print ''
+
+    def _depthFirstTraverse(self, root):
+        print str(root.data)+' ',
+        if root.leftChild:
+            self._depthFirstTraverse(root.leftChild)
+        if root.rightChild:
+            self._depthFirstTraverse(root.rightChild)
 
 
 if __name__ == '__main__':
@@ -83,10 +100,7 @@ if __name__ == '__main__':
     bt.insert(7)
     bt.insert(10)
     bt.printDepth(0) # should be 5
-    print '\n'
     bt.printDepth(1) # should be 3 9
-    print '\n'
     bt.printDepth(2) # should be 2 4 7 10
-    print '\n'
     bt.levelOrderTraverse() # should be 5 3 9 2 4 7 10
-    print '\n'
+    bt.depthFirstTraverse() # should be 5 3 2 4 9 7 10
